@@ -5,7 +5,7 @@ PORTABILITY
 DISPLAY
 - Two separate e-paper displays
 - Approximately book like two page reading experience
-- Adjustable frontlighting
+- Adjustable lighting for reading at night. Built-in frontlight would be nice, but a small gooseneck lamp is another possibility.
 
 INPUT
 - Physical controls

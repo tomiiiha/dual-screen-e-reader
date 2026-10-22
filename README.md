@@ -4,16 +4,18 @@ A custom folding, dual screen e-paper reader designed around comfortable two pag
 
 ## Project Status
 
-**Early design / requirements phase**
+**Early prototyping / parts ordered**
 
-The project is currently focused on defining the hardware architecture, display system, enclosure, controls, power requirements, and software platform before committing to a final PCB or mechanical design.
+Ordered the first ESP32-S3 board, ANO navigation encoder, and 5.76-inch E Ink display on October 21, 2026. Nothing has been wired up or tested yet. Still figuring out the final electronics, enclosure, and power setup.
+
+See `electronics/components.md` and `docs/design-log/002-first-parts-ordered.md`.
 
 ## Design Goals
 
 - Two e-paper displays arranged like the pages of a book
 - Folding design that protects the displays when closed
 - Portable enough for carrying in a bag or pocket
-- Adjustable frontlight for reading in bed / low light
+- Some kind of adjustable light for reading at night (integrated frontlight or possibly a little built-in gooseneck lamp)
 - Physical buttons for page navigation / control selection
 - No touchscreen unless a strong design reason emerges later
 - Clear or translucent enclosure where practical so the electronics remain visible (important for personal aesthetics. However, this may end up being a fool's errand)
