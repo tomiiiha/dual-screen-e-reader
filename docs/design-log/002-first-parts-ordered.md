@@ -13,9 +13,9 @@ I still want to be able to read in the dark, but a built-in frontlight isn't a m
 
 ## Ordered
 
-- Waveshare ESP32-S3 development board (need to confirm the exact version from my order)
+- Waveshare ESP32-S3 development board
 - Adafruit ANO rotary navigation encoder breakout #6311 (pre-soldered encoder)
-- One Good Display GDEH0576T81 5.76-inch E Ink display (need to confirm adapter-board option)
+- One Good Display GDEH0576T81 5.76-inch E Ink display
 
 I already have a breadboard and male-to-male jumper wires.
 
