@@ -8,9 +8,9 @@ This is mostly to keep track of what I've ordered and what I might use later. No
 
 | Part | Qty | Notes |
 | --- | --- | --- |
-| [Waveshare ESP32-S3 development board](https://www.waveshare.com/esp32-s3-dev-kit-n8r8.htm) | 1 | Main controller for initial tests. Need to double-check the exact flash/PSRAM and header option on the order. |
+| [Waveshare ESP32-S3 development board](https://www.waveshare.com/esp32-s3-dev-kit-n8r8.htm) | 1 | Main controller for initial tests. |
 | [Adafruit ANO rotary navigation encoder breakout, #6311](https://www.adafruit.com/product/6311) | 1 | Pre-soldered encoder. Want to use this for menus and page navigation. |
-| [Good Display GDEH0576T81 5.76-inch E Ink panel](https://buy-oled.com/products/gdeh0576t81) | 1 | 920 x 680 (~198 PPI), black and white. Need to confirm whether my order includes the adapter board. |
+| [Good Display GDEH0576T81 5.76-inch E Ink panel](https://buy-oled.com/products/gdeh0576t81) | 1 | 920 x 680 (~198 PPI), black and white. Need to confirm whether my order includes the adapter board. (it does) |
 
 Ordered doesn't mean tested yet.
 
