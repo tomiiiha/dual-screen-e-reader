@@ -4,11 +4,11 @@ A custom folding, dual screen e-paper reader designed around comfortable two pag
 
 ## Project Status
 
-**Early prototyping / parts ordered**
+**Early electronics testing**
 
-Ordered the first ESP32-S3 board, ANO navigation encoder, and 5.76-inch E Ink display on October 21, 2026. Nothing has been wired up or tested yet. Still figuring out the final electronics, enclosure, and power setup.
+Ordered the first parts on October 21. On October 30, I got the ESP32-S3 running in PlatformIO and tested the ANO navigation wheel: five buttons and both rotation directions work. The E Ink display has not been tested yet.
 
-See `electronics/components.md` and `docs/design-log/002-first-parts-ordered.md`.
+See `docs/design-log/003-esp32-controls-tested.md` for what I did, `firmware/esp32-tests/` for the test code, and `docs/next-steps.md` for what comes next.
 
 ## Design Goals
 
@@ -37,7 +37,7 @@ The repository will eventually contain:
 
 - Electronics design and schematics
 - Mechanical CAD and enclosure revisions
-- Firmware/software
+- Firmware/software and early hardware test code
 - Bill of materials
 - Prototypes and test results
 - Design notes and engineering decisions
