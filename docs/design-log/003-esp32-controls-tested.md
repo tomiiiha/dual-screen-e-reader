@@ -44,7 +44,7 @@ I kept all five test programs in [`firmware/esp32-tests`](../../firmware/esp32-t
 - [x] Center button
 - [x] Up, down, left, right
 - [x] Rotary clockwise and counterclockwise
-- [ ] Mock menu example — code saved, not confirmed tested
+- [x] Mock menu example
 - [ ] E Ink panel
 - [ ] Reading firmware / EPUBs
 - [ ] Second screen
