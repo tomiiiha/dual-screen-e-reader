@@ -26,6 +26,10 @@ I used the GxEPD2 library with its `GxEPD2_576_GDEH0576T81` driver and wrote a s
 
 The original navigation wheel connections were left on GPIO4–GPIO10. The DESPI-C02 uses **3.3 V**, not 5 V. Any changes to the ribbon cable or jumper wiring should be made with USB power disconnected.
 
+## Reference used
+
+I used [Espressif's ESP32-S3 development kit documentation, page 8](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp-dev-kits-en-master-esp32s3.pdf#page=8) as a reference while identifying the ESP32-S3 GPIO pins and setting up the display wiring. The development board in this project is a Waveshare board, so I also checked the labels on the actual board instead of assuming the reference guide described every detail of my hardware.
+
 ## Software
 
 - VS Code with PlatformIO
@@ -73,3 +77,4 @@ These are the timings printed by GxEPD2 during the successful run, in microsecon
 ## Next
 
 Keep this code as a known-working test instead of replacing it with untested firmware. My next major goal is to investigate adapting existing open-source e-reader firmware (especially CrossPoint Reader) to this display and the ANO wheel, rather than writing an EPUB engine from scratch.
+

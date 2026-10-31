@@ -27,6 +27,10 @@ This is a separate PlatformIO project from `firmware/esp32-tests/`, which contai
 
 The separate ANO wheel tests previously used GPIO4–GPIO10. This particular program doesn't read the wheel.
 
+## Reference
+
+For the ESP32-S3 GPIO pin layout, I referred to [Espressif's ESP32-S3 development kit documentation (PDF, page 8)](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp-dev-kits-en-master-esp32s3.pdf#page=8). My hardware is a Waveshare ESP32-S3 development board, so the PDF was a pin-reference aid rather than a board-specific wiring diagram for the entire prototype.
+
 ## Run
 
 1. Disconnect USB before changing any wiring. Confirm `3.3V` is connected to `3V3`, not 5 V, and the display ribbon is seated.
