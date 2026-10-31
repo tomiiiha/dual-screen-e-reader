@@ -4,11 +4,13 @@ A custom folding, dual screen e-paper reader designed around comfortable two pag
 
 ## Project Status
 
-**Early electronics testing**
+**Early electronics prototyping — first E Ink screen working**
 
-Ordered the first parts on October 21. On October 30, I got the ESP32-S3 running in PlatformIO and tested the ANO navigation wheel: five buttons and both rotation directions work. The E Ink display has not been tested yet.
+I ordered the initial parts on October 21, 2026. On October 30, I got the ESP32-S3 running through PlatformIO and tested all five buttons and both rotation directions on the ANO navigation wheel.
 
-See `docs/design-log/003-esp32-controls-tested.md` for what I did, `firmware/esp32-tests/` for the test code, and `docs/next-steps.md` for what comes next.
+On October 31, I connected the Good Display GDEH0576T81 (5.76-inch, 920 x 680) through its DESPI-C02 adapter, uploaded a GxEPD2 test program, and got **Hello World!** to show on the screen. The display refresh finished and I confirmed the text was visible. It's only a single-display prototype so far; no books or second display yet.
+
+See [`docs/design-log/003-esp32-controls-tested.md`](docs/design-log/003-esp32-controls-tested.md) and [`docs/design-log/004-first-eink-refresh.md`](docs/design-log/004-first-eink-refresh.md). Working test code is in `firmware/esp32-tests/` and `firmware/eink-display-test/`. The plan is in [`docs/next-steps.md`](docs/next-steps.md).
 
 ## Design Goals
 
