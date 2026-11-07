@@ -18,4 +18,4 @@ This isn't running inside CrossPoint. The custom CrossPoint build still needs it
 
 ## Test photo
 
-![ESP32-S3 reading text from the microSD card and displaying it on the E Ink screen](../images/IMG_5793.png)
+![ESP32-S3 reading text from the microSD card and displaying it on the E Ink screen](../images/IMG_5833.jpg)
