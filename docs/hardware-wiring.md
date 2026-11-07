@@ -1,57 +1,55 @@
-# Prototype hardware wiring and pin allocation
+# Prototype wiring
 
-**Updated:** 2026-10-31. One ESP32-S3, one E Ink panel, one ANO navigation wheel. **3.3 V logic.**
+**Updated November 7, 2026.** This is the wiring used for the standalone SD card/display test. Everything is powered through the ESP32-S3's USB connection for now.
 
-## Verified working: E Ink display (GDEH0576T81 via DESPI-C02)
+## SD card and E Ink display — tested together
 
-| Adapter signal | ESP32-S3 | State |
+The SD card and display use the same SPI clock and MOSI lines. They each have their own chip-select pin.
+
+| ESP32-S3 pin | microSD breakout | E Ink / DESPI-C02 |
 | --- | --- | --- |
-| SDI / MOSI | GPIO11 | Verified |
-| SCK | GPIO12 | Verified |
-| CS | GPIO13 | Verified |
-| D/C | GPIO14 | Verified |
-| RES / RESET | GPIO15 | Verified |
-| BUSY | GPIO16 | Verified |
-| GND | GND | Verified |
-| 3.3 V | 3V3 | Verified |
+| 3V3 | 3V | 3.3 V input |
+| GND | GND | GND |
+| GPIO9 | D3/CS | — |
+| GPIO10 | D0/SO (MISO) | — |
+| GPIO11 | CMD/SI (MOSI) | SDI / MOSI |
+| GPIO12 | CLK (SCK) | SCK |
+| GPIO13 | — | CS |
+| GPIO14 | — | D/C |
+| GPIO15 | — | RESET |
+| GPIO16 | — | BUSY |
+| GPIO17 | DET (card detect) | — |
 
-Display example: GxEPD2 `GxEPD2_576_GDEH0576T81`, native 920 × 680 monochrome, USB-powered ESP32. A native-resolution CrossPoint error screen also rendered with the custom port on October 31.
+The SD card's D1 and DAT2 pins are not used. The tested SPI speed for SD initialization was 1 MHz; the standalone display test used 4 MHz for E Ink.
 
-## Verified working: Adafruit ANO controls
+I use common 3.3 V and ground rails on the breadboard. I need to make sure any split rails are connected. Don't connect either board to a 5 V power rail without checking the board specifications first. Disconnect USB before moving jumpers.
 
-| ANO signal | ESP32-S3 | Purpose |
+**Test result:** The ESP32 read the first line of `/test.txt` from the FAT32 SD card and drew it on the GDEH0576T81 using GxEPD2. Card detection, SD file writing, and SD file reading also passed in separate tests.
+
+## ANO navigation controls — old tested wiring, now conflicts
+
+The ANO was tested before I added the SD card. These were the pins used at that point:
+
+| ANO function | Original ESP32-S3 pin | Status |
 | --- | --- | --- |
-| COMA | GND | Common switch ground |
-| COMB | GND | Common switch ground |
-| SW1 | GPIO4 | Center/select |
-| SW2 | GPIO5 | Down |
-| SW3 | GPIO6 | Right |
-| SW4 | GPIO7 | Up |
-| SW5 | GPIO8 | Left |
-| ENCA | GPIO9 | Rotary A |
-| ENCB | GPIO10 | Rotary B |
+| Center/select | GPIO4 | Previously tested |
+| Down | GPIO5 | Previously tested |
+| Right | GPIO6 | Previously tested |
+| Up | GPIO7 | Previously tested |
+| Left | GPIO8 | Previously tested |
+| Rotary encoder A | GPIO9 | **Conflict: SD CS** |
+| Rotary encoder B | GPIO10 | **Conflict: SD MISO** |
+| Switch commons | GND | Shared ground |
 
-Standalone controls worked with internal pull-ups (`INPUT_PULLUP`), and a separate ANO + display demonstration successfully changed pages. CrossPoint's actual input mapping remains unverified.
+I also reported that GPIO11 was physically shared with a rotary-control connection in the current breadboard setup. I need to trace that wire before doing the final three-device test; GPIO11 is already the shared SPI MOSI signal.
 
-## Proposed only: microSD storage breakout
+The buttons were tested with `INPUT_PULLUP` in the standalone control program. The ANO's rotary inputs cannot stay on GPIO9/10 while those pins are used by the SD card. An ordinary button connection also cannot share GPIO11 with SPI MOSI. I'll move any overlapping ANO signals to free GPIOs and update the firmware before claiming the input controls work alongside storage.
 
-**Not connected or electrically tested yet.** Current planned purchase: Adafruit #4682 microSD SPI/SDIO breakout and a microSD card. The exact card capacity and purchase receipt are not yet captured here.
+## What's not wired or settled
 
-| SPI signal | ESP32-S3 proposal | Comment |
-| --- | --- | --- |
-| CLK / SCK | GPIO12 | Share SPI clock with E Ink |
-| DI / MOSI | GPIO11 | Share MOSI with E Ink |
-| DO / MISO | GPIO17 | New input for card reads |
-| SD CS | GPIO18 | Separate chip select from E Ink CS=13 |
-| 3V / VCC | 3V3 | Check actual breakout labeling/specification |
-| GND | GND | Shared ground |
+- Final ANO pin mapping with SD attached
+- CrossPoint's SD and input configuration
+- Battery, charging, power switch, and sleep/wake hardware
+- Second display, frontlight, hinge, and enclosure
 
-Do not confuse the adapter's SDI (E Ink MOSI) with a microSD card's DI/DO signals. For shared SPI, each device must have a separate CS and inactive devices must be deselected. Verify the breakout's pinout and whether library configuration expects hardware SPI or its own `SdFat` SPI object.
-
-## Physical/electrical cautions
-
-- Disconnect USB power before re-routing ribbon cables, jumpers, or headers.
-- Do not apply 5 V logic/power to the DESPI-C02 setup that worked at 3.3 V.
-- Keep leads short and mechanically secure; breadboard wiring is a temporary proof of concept.
-- The final SD, display, and ANO hardware must be tested together before assigning unused GPIOs to other peripherals.
-- The second display, power management, lighting, and custom PCB have no final pin assignments yet.
+Older logs show the original ANO mapping and a proposed SD mapping using GPIO17/18. Those were earlier plans. The **tested SD wiring is GPIO9 CS, GPIO10 MISO, GPIO11 MOSI, GPIO12 SCK, and GPIO17 DET**.

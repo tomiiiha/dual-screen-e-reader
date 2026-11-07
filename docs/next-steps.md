@@ -1,53 +1,37 @@
-# Next steps (after October 31, 2026)
+# Next steps
 
-## Current milestone
+**Updated November 7, 2026**
 
-**Custom CrossPoint Reader firmware now boots and renders a readable 920 × 680 “SD card error.”** The physical SD hardware is not connected. E Ink Hello World and a separate ANO-controlled page demo worked beforehand.
+The standalone SD test works, and the SD card and E Ink display can work together. I'm done troubleshooting basic SD reading for now.
 
-## 1. Preserve today's work before editing further
+## Before changing CrossPoint
 
-- [ ] Save `git status` and `git diff` from the local CrossPoint clone **and each changed submodule**.
-- [ ] Copy or commit the `custom_reader` PlatformIO configuration, custom board definitions, driver code, and exact library/toolchain versions to a reviewable branch or patch.
-- [ ] Verify only one GDEH0576 driver implementation is built (duplicate symbols were encountered during development).
-- [ ] Keep `firmware/eink-display-test/` untouched as a recovery baseline; archive the combined ANO/page demo separately.
-- [ ] Note actual board module flash/PSRAM size and final partition scheme, which have not been independently cross-checked in the repository.
+- [ ] Move the ANO rotary wires off GPIO9 and GPIO10, which the SD card now uses. Check the reported overlap at GPIO11 too.
+- [ ] Repeat the controls test with the updated pin assignments.
+- [ ] Run a quick test with SD, display, and ANO connected together. Make sure reading a file still works while using the controls.
+- [ ] Keep copies of the standalone working tests so I can go back to them if something breaks.
 
-## 2. Connect storage — **only current purchase round**
+## Get CrossPoint reading the card
 
-- [ ] Receive Adafruit #4682 microSD SPI/SDIO breakout and one microSD card; capture actual model/capacity.
-- [ ] Solder header pins, verify pad labels, and connect 3.3 V/GND.
-- [ ] Try shared SPI SCK=GPIO12 and MOSI=GPIO11, plus SD MISO=GPIO17 and SD CS=GPIO18; **these SD pins are proposed, not tested**.
-- [ ] Ensure display CS=GPIO13 and SD CS=GPIO18 are independently controlled.
-- [ ] Format as FAT32 if required and run a basic storage initialization/read-write test.
-- [ ] Map SD configuration in CrossPoint to the actual wiring and diagnose the SD startup error.
+- [ ] Open the local CrossPoint `custom_reader` PlatformIO environment and check the SD driver/board pin configuration.
+- [ ] Set up storage for the actual tested wiring: SD CS=9, MISO=10, MOSI=11, SCK=12. DET=17 if needed.
+- [ ] Check how CrossPoint and its FreeInk SDK use SPI, and make sure the display CS=13 is handled separately.
+- [ ] Build and flash, then check that CrossPoint mounts the SD card without breaking the display.
+- [ ] Put a small EPUB on the card and see whether it appears in the library.
 
-**Pass condition:** firmware recognizes the card and can read a known file.
+## Make it useful as a reader
 
-## 3. First functional reader (single screen)
+- [ ] Open an EPUB and get readable text on the screen.
+- [ ] Map ANO directions and center/select into the actual CrossPoint interface.
+- [ ] Map page turns and, if useful, the rotary encoder.
+- [ ] Check that book position is saved and restored.
+- [ ] Check refresh behavior, ghosting, and memory use.
 
-- [ ] Load a test EPUB and verify library listing, text rendering, and font/page layout.
-- [ ] Map ANO directions, center press, and rotary movement into CrossPoint's input handling (standalone demo is not proof this is done).
-- [ ] Turn EPUB pages; test return to library, reading position saving and reopening a book.
-- [ ] Inspect memory/PSRAM use and performance at 920 × 680.
-- [ ] Compare full/partial refresh and ghosting; note any display-driver limits.
+## Later
 
-**Pass condition:** read a full chapter without a computer connected to the software workflow (USB power is fine during development).
+- [ ] Figure out a dedicated sleep/wake and power switch setup.
+- [ ] Test battery power and measure current draw.
+- [ ] Decide whether to keep this panel size or change it for the two-page design.
+- [ ] Work out the second display, hinge, clear case, and lighting.
 
-## 4. Only afterward: folding hardware and power
-
-- [ ] Confirm whether a second 5.76-inch panel is the right size/density for the final reader.
-- [ ] Test two E Ink panels with shared SPI and independent CS/BUSY/RESET as needed.
-- [ ] Design two-page rendering/turning logic and a folding hinge mock-up.
-- [ ] Evaluate screen protection, ribbon bend radius, cable strain relief and repairability.
-- [ ] Test a stowable reading-light concept versus integrated frontlight feasibility.
-- [ ] Measure peak/idle current, then select battery/protection/charging electronics.
-- [ ] Build CAD, a case prototype and eventually a custom PCB.
-
-## Measurements to record
-
-- Firmware build size, free flash/PSRAM/RAM; SD card mount time and I/O errors.
-- EPUB page layout time; input-to-refresh latency; partial/full refresh and ghosting.
-- Power draw during boot, idle, refresh and deep sleep once measurable.
-- Folded dimensions, mass and durability once mechanical prototypes exist.
-
-The second screen, battery and final enclosure are **not** part of the current purchase.
+The immediate goal is still **one usable single-screen reader**. I don't need to start the enclosure or dual-screen work before that.

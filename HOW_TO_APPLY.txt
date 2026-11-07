@@ -1,0 +1,16 @@
+Manual GitHub update — November 7, 2026
+
+This package contains replacement Markdown files and two standalone PlatformIO test projects.
+
+Do not delete your existing repository. Copy the files into the matching folders of your local dual-screen-e-reader repository. For files that already exist (README.md, docs/hardware-wiring.md, electronics/components.md, docs/next-steps.md), review the replacements before overwriting. The new design log and firmware test folders can be added alongside the existing files.
+
+Nothing in this package changes the local CrossPoint/FreeInk fork. The SD/display examples are independent tests.
+
+From a terminal inside your local dual-screen-e-reader repository:
+
+  git status
+  git add README.md docs/hardware-wiring.md docs/next-steps.md docs/design-log/008-sd-card-and-display.md electronics/components.md firmware/sd-card-test firmware/sd-display-test
+  git commit -m "Document SD card and E Ink integration tests"
+  git push
+
+One thing to fix before claiming all components work together: the original ANO rotary encoder pin assignments overlap SD CS (GPIO9) and SD MISO (GPIO10). The current breadboard may also have an input wire on GPIO11 (shared SPI MOSI). Reassign the rotary/control wires and test again.

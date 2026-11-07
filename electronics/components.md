@@ -1,36 +1,29 @@
-# Electronics / parts inventory
+# Parts on hand
 
-**Updated:** 2026-10-31  
-**Rule for this round:** Only the microSD breakout and microSD card are being selected/ordered now.
+**Updated November 7, 2026**
 
-## Received and tested
+| Part | Current status |
+| --- | --- |
+| ESP32-S3 development board | Working with PlatformIO and USB serial |
+| Good Display GDEH0576T81 (5.76 in, 920 x 680) | Tested with GxEPD2 and with the custom CrossPoint build |
+| DESPI-C02 display adapter | Working with the display at 3.3 V |
+| Adafruit ANO rotary navigation control | All five switches and rotary movement worked in earlier standalone tests; pin mapping needs to change now that SD is attached |
+| Adafruit microSD SPI/SDIO breakout | Received, headers soldered, tested |
+| 128 GB microSD card | Reformatted from exFAT to FAT32; tested with the ESP32-S3 |
+| Breadboard, jumpers, USB cable | In use for the bench prototype |
 
-| Item | Qty | Status / evidence |
-| --- | ---: | --- |
-| Waveshare ESP32-S3 development board | 1 | Runs PlatformIO test code and the flashed CrossPoint `custom_reader` build |
-| Adafruit ANO rotary navigation encoder breakout, #6311 | 1 | Five switches and both encoder directions verified, Oct 30; page-changing demo worked Oct 31 |
-| Good Display GDEH0576T81 5.76-inch E Ink, 920 × 680 | 1 | GxEPD2 Hello World + visible CrossPoint native-resolution SD error screen, Oct 31 |
-| Good Display DESPI-C02 display adapter | 1 | Arrived with panel; SPI and 3.3 V operation verified |
-| Breadboard, jumper wires, USB cable | Existing | Temporary bench setup; no battery yet |
+## What I tested with the new parts
 
-## Only items in current purchase plan
+On November 7 I got the SD breakout to initialize, write a text file, and read it back. The card identifies as 116 GiB in the serial output, which is normal for a card sold as 128 GB. I then connected the display to the same SPI bus and displayed the first line of a file stored on the card.
 
-| Item | Qty | Status | Notes |
-| --- | ---: | --- | --- |
-| [Adafruit microSD SPI/SDIO breakout, #4682](https://www.adafruit.com/product/4682) | 1 | **Ordering / not yet received** | User comfortable soldering header pins. Proposed SPI pinout documented in `docs/hardware-wiring.md`. |
-| microSD card | 1 | **Ordering / not yet received** | Plan: 16–32 GB, FAT32 if compatible with selected card and firmware. Exact purchased model/capacity to be recorded from receipt. |
+The first SD tests failed with `f_mount failed (3)`. Reformatted the card to FAT32, checked the DET pin, disconnected the display during troubleshooting, and lowered the SD clock to 1 MHz. The simpler test passed, then the combined display test passed too.
 
-**Status language:** the user indicated these are the only items being ordered right now. No completed transaction or delivery is assumed from the conversation alone.
+## Not bought or built yet
 
-## Deferred — not ordered in this round
+- Second E Ink screen and its interface hardware
+- Battery, charger, protection, and power switching
+- Final PCB and connectors
+- Hinge, case, and screen protection
+- Built-in or separate reading light
 
-- Second E Ink panel and interface hardware (wait until actual reading works on one panel).
-- Battery cell/pack, protection, charger, fuel gauge, and power switching.
-- Final microcontroller board or custom PCB.
-- Hinge, case material, transparent enclosure, fasteners and cable strain relief.
-- Integrated frontlight/gooseneck reading light.
-- Additional headers, jumpers, wire, connectors, capacitors or tools **unless found necessary during the next verified test**.
-
-## Next purchase validation
-
-After arrival, photograph/record model numbers and card capacity, check breakout voltage/pin labeling, solder header as needed, and verify FAT32 card initialization and a read/write operation using the ESP32 before diagnosing application-level EPUB issues. Record actual cost, retailer, and date only when known.
+I'm not buying more parts just to solve a software issue. First I need the existing parts working together, then I can build an actual reading interface.
